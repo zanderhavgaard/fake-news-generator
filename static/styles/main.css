@@ -1,18 +1,24 @@
-body, h1, h3{
-    font-family: 'Bungee', cursive;
+body {
+    background-color: black;
 }
 
+h2{
+    font-family: 'Playfair Display', cursive;
+}
+
+h3{
+    font-family: 'Franklin Gothic', cursive;
+}
 body p{
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Barlow', sans-serif;
+    font-size:30px;
 }
 
 #fakeHeader{
-    font-family: 'Exo', sans-serif;
+    font-family: 'Playfair Display', sans-serif;
     font-size: 50px;
     margin-top: 0px;
     margin-bottom: 20px;
-    /*font-family: 'Titillium Web', sans-serif;*/
-    /*font-family: 'Catamaran', sans-serif;*/
 }
 
 #fakeUrl{
@@ -31,12 +37,13 @@ body p{
 }
 
 .main-text button{
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 12%;
+    margin-bottom: 1%;
     background-color:#3b5998;
     color: white;
     border: grey;
     border-radius: 15px;
+    font-family: 'Franklin Gothic';
 }
 
 .main-text button:hover{
@@ -65,8 +72,10 @@ body p{
 }
 
 .jumbotron p {
-    font-size: 16px;
+    font-size: 18px;
 }
+
+
 
 #kasse{
     background-color: white;
