@@ -2,13 +2,19 @@ resource "digitalocean_droplet" "droplet" {
   image = "ubuntu-20-04-x64"
   name = "droplet"
   region = "fra1"
-  size = "s-2vcpu-2gb"
+  size = "s-1vcpu-1gb"
   private_networking = true
-  ssh_keys = [var.db_ssh_fingerprint, var.client_ssh_fingerprint, var.orch_ssh_fingerprint]
+  # ssh_keys = [var.pub_key_fingerprint]
+  ssh_keys = [digitalocean_ssh_key.droplet-key.fingerprint]
 }
 
 resource "random_password" "password" {
   length = 50
+}
+
+resource "digitalocean_ssh_key" "droplet-key" {
+  name = "next-gen-news"
+  public_key = file(var.pub_key)
 }
 
 resource "null_resource" "root-provisioner" {
@@ -16,7 +22,7 @@ resource "null_resource" "root-provisioner" {
     user = "root"
     host = digitalocean_droplet.droplet.ipv4_address
     type = "ssh"
-    private_key = file(var.db_pvt_key)
+    private_key = file(var.pvt_key)
     timeout = "2m"
   }
 
@@ -53,6 +59,9 @@ resource "null_resource" "root-provisioner" {
 
       # clone repository
       "git clone --quiet https://github.com/zanderhavgaard/fake-news-generator /home/ubuntu/fake-news-generator",
+
+      # pull docker image
+      "docker pull zanderhavgaard/fake-news-generator",
 
       # make sure ubuntu owns all of it's stuff...
       "chown -R \"ubuntu:ubuntu\" /home/ubuntu",

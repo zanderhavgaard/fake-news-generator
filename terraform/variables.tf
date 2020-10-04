@@ -1,6 +1,13 @@
 variable "digitalocean_token" {}
-variable "pub_key" {}
-variable "pvt_key" {}
+
+variable "pub_key" {
+  type = string
+  default = "ssh_key/droplet.pub"
+}
+variable "pvt_key" {
+  type = string
+  default = "ssh_key/droplet"
+}
 
 # username for new vm user
 variable "username" {
