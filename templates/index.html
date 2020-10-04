@@ -14,10 +14,11 @@
 
     <!-- static css -->
     <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    <script src="{{ url_for('static',filename='scripts/main.js') }}"></script>
 
     <!-- page title -->
-    <title>Random news link generator!</title>
+    <title>Fake news generator!</title>
 
     <!-- data that will be displayed when embedded -->
     <meta property="og:title" content="Obama Refuses To Salute Hillary Clinton: “I Will Not Endorse LGBT Rights!”"/>
@@ -59,7 +60,10 @@
 <br><br>
 
 But all your friends most likely <a target="_blank" href="http://www.sciencedirect.com/science/article/pii/S0959378015000369">agree with you</a>, so who’s gonna tell you they’re not true?</p>
-                        <p id="satisfyh2" style="font-weight:900; font-size: 14px; color: #FFA500;text-align: center;"></p>
+
+                        {% if content is defined %}
+                        <p id="satisfyh2" style="font-weight:900; font-size: 14px; color: #FFA500;text-align: center;">Not satisfied with your news? Generate some new news!</p>
+                        {% endif %}
 
                         <!-- <button type="button" class="btn btn-primary btn-lg btn-block" onclick="branchSelector();">Generate news!</button> -->
 
@@ -75,26 +79,30 @@ But all your friends most likely <a target="_blank" href="http://www.sciencedire
             </div>
 
             <div class="col-sm-8"> <!-- second column -->
+                <!-- hide all article elements if there is no article content -->
+                {% if content is defined %}
                 <div class="jumbotron" id="kasse" style="padding-right:20px; padding-left:20px;">
 
                     <h1 id="fakeHeader">
                         {{ content.header }}
                     </h1>
 
-                    <h2>
-                        {{ content.image_url }}
-                    </h2>
+                    <h3>
+                        Share your generated fake news on social media!
+                    </h3>
+
+                    <a id="fakeUrl" href="{{ content.article_url }}">
+                        {{ content.article_url }}
+                    </a>
+
+                    <button type="button" class="btn btn-primary " onclick="copyToClipboard()">Copy Link</button>
 
                     <div id="fakeImage">
                         <img id="article_image" src="{{ content.image_url }}" style="width:100%; padding-top:10%; padding-bottom:1%; display: inline;">
                     </div>
 
-                    <a id="fakeUrl">
-                        {{ content.article_url }}
-                    </a>
-
-
                 </div>
+                {% endif %}
             </div>
         </div>
 

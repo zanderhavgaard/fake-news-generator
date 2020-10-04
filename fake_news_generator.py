@@ -18,9 +18,7 @@ image_url_key_string = "aW1hZ2VfdXJs"
 @app.route("/")
 def index():
 
-    content = None
-
-    page = render_template("index.html", content=content)
+    page = render_template("index.html")
 
     return page
 
@@ -39,10 +37,6 @@ def random_article():
 
     return redirect(url)
 
-    #  print(url)
-
-    #  return ""
-
 
 @app.route("/article")
 def article():
@@ -54,12 +48,12 @@ def article():
     # decode header and image url
     header = base64_decode(header)
     image_url = base64_decode(image_url)
+    url = request.url
 
-    #  print("header", header)
-    #  print("image_url", image_url)
+    print("url", url)
 
     # create article from parsed data
-    article = Article(header=header, image_url=image_url)
+    article = Article(header=header, image_url=image_url, article_url=url)
 
     content = article.get_content_dict()
 
@@ -68,16 +62,12 @@ def article():
     return page
 
 
-def decode_article_hash(hashed: str):
-
-    pass
-
-
 def generate_article():
 
     header, image_url = content_provider.generate_content()
+    url = f'{url_for("article")}?{header_key_string}={header}&{image_url_key_string}={image_url}'
 
-    article = Article(header=header, image_url=image_url)
+    article = Article(header=header, image_url=image_url, article_url=url)
 
     return article
 

@@ -5,11 +5,16 @@ DEFUALT_DESCRIPTION = """These latest news on the issue shed the whole thing in 
 
 class Article:
     def __init__(
-        self, header: str, image_url: str, description: str = DEFUALT_DESCRIPTION
+        self,
+        header: str,
+        image_url: str,
+        article_url: str,
+        description: str = DEFUALT_DESCRIPTION,
     ) -> None:
 
         self.header = header
         self.image_url = image_url
+        self.article_url = article_url
         self.description = description
 
     def get_content_dict(self) -> dict:
